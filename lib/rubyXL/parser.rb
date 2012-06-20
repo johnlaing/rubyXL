@@ -399,11 +399,9 @@ module RubyXL
       @num_sheets = Integer(@num_sheets)
 
       #adds all worksheet xml files to files hash
-      i=1
-      1.upto(@num_sheets) do
+      1.upto(@num_sheets) do |i|
         filename = 'sheet'+i.to_s
-        files[i] = Nokogiri::XML.parse(File.open(File.join(dir_path,'xl','worksheets',filename+'.xml'),'r'))
-        i=i+1
+        File.open(File.join(dir_path,'xl','worksheets',filename+'.xml'),'r') { |f| files[i] = Nokogiri::XML.parse(f) }
       end
 
       FileUtils.rm_rf(dir_path)
